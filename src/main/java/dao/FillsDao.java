@@ -24,6 +24,8 @@ public interface FillsDao {
 
     Integer getMaxMessageNumber();
 
+    Long getMaxSubmitTime();
+
     // planned deals
     void updatePlannedDeal(PlannedDeal plannedDeal);
 

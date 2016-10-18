@@ -118,6 +118,15 @@ public class FillsDaoHibernateImpl implements FillsDao {
         return maxMessagenumber;
     }
 
+    @Override
+    public Long getMaxSubmitTime() {
+        DetachedCriteria dc = DetachedCriteria.forEntityName(ENTITY_ORDER);
+        dc.setProjection(Projections.max("submitTime"));
+        Long maxSubmitTime = 0l;
+        maxSubmitTime = (Long) hibernateTemplate.findByCriteria(dc).get(0);
+        return maxSubmitTime;
+    }
+
     @Transactional
     @Override
     public void updatePlannedDeal(PlannedDeal plannedDeal) {

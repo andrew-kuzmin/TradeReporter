@@ -11,6 +11,7 @@ import dto.Order;
 import dto.PlannedDeal;
 import dto.UnplannedDeal;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import parser.FileParser;
 
 
 public class OrderUpdater {
@@ -22,7 +23,7 @@ public class OrderUpdater {
     private static final long AFTER_RANGE = (DAY_RANGE + 1) * MILLIS_IN_A_DAY;
 
     private FillsDao fillsDao;
-    private Integer maxMessageNumber;
+    private Long maxSubmitTime;
     private int ordersCount;
 
     public OrderUpdater(FillsDao fillsDao) {
@@ -30,10 +31,12 @@ public class OrderUpdater {
     }
 
     public void perform() {
-        maxMessageNumber = 1;//fillsDao.getMaxMessageNumber();
+        maxSubmitTime = fillsDao.getMaxSubmitTime();
+        FileParser fileParser = new FileParser();
+
 //        MailReader mailReader = new MailReader();
 //        List<Order> orders = mailReader.readStartingFrom(maxMessageNumber);
-        List<Order> orders = new ArrayList<>();
+        List<Order> orders = fileParser.getParsedValues()
         ordersCount = orders.size();
         System.out.println(ordersCount);
         for (Order order : orders) {

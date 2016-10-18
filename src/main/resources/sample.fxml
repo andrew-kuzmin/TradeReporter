@@ -4,12 +4,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="mainPane" alignment="center" gridLinesVisible="true" hgap="10" prefHeight="236.0" prefWidth="204.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane fx:id="mainPane" alignment="center" gridLinesVisible="true" hgap="10" prefHeight="487.0" prefWidth="760.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <Label fx:id="label1" text="Test text" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" text="Button" />
+      <Label fx:id="label1" prefHeight="217.0" prefWidth="419.0" GridPane.rowIndex="1" />
+      <Pane GridPane.rowIndex="3">
+         <children>
+            <Button fx:id="chooseFileButton" alignment="CENTER" contentDisplay="TOP" layoutX="133.0" mnemonicParsing="false" onMouseClicked="#onChooseFileClicked" prefHeight="25.0" prefWidth="153.0" text="Choose file" textOverrun="CLIP" />
+         </children>
+      </Pane>
    </children>
    <columnConstraints>
       <ColumnConstraints />
@@ -17,5 +22,8 @@
    <rowConstraints>
       <RowConstraints />
       <RowConstraints />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints />
+      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
    </rowConstraints>
 </GridPane>
