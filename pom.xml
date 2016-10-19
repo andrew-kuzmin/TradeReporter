@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>trading</groupId>
-	<artifactId>trading</artifactId>
-	<packaging>war</packaging>
+	<groupId>reporter</groupId>
+	<artifactId>reporter</artifactId>
+	<!--<packaging>zip</packaging>-->
 	<version>1.5</version>
-	<name>trading</name>
+	<name>reporter</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +22,6 @@
 		<jsoup.version>1.8.2</jsoup.version>
 		<poi.version>3.12</poi.version>
 		<quandl.version>1.1.0</quandl.version>
-		<httpclient.version>4.5</httpclient.version>
 		<maven.compiler.source>1.7</maven.compiler.source>
 		<maven.compiler.target>1.7</maven.compiler.target>
 	</properties>
@@ -109,40 +108,23 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>${poi.version}</version>
 		</dependency>
-		<!-- 16.06.2015 -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>${httpclient.version}</version>
-		</dependency>
-		<!-- 03.07.2015 -->
-		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client</artifactId>
-			<version>1.20.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.oauth-client</groupId>
-			<artifactId>google-oauth-client-jetty</artifactId>
-			<version>1.20.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.apis</groupId>
-			<artifactId>google-api-services-calendar</artifactId>
-			<version>v3-rev129-1.20.0</version>
-		</dependency>
 		<!-- 09.07.2015 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+		<!--18.10.2016-->
+
 	</dependencies>
 
 	<profiles>
 		<profile>
 			<!-- OPENSHIFT PROFILE -->
 			<id>openshift</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<!-- hibernate properties -->
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
@@ -183,26 +165,27 @@
 			</pluginRepositories>
 		</profile>
 
-		<profile>
-			<!-- LOCAL PROFILE -->
+		<!--<profile>
+			&lt;!&ndash;
+			CAL PROFILE &ndash;&gt;
 			<id>default</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<!-- hibernate properties -->
+				&lt;!&ndash; hibernate properties &ndash;&gt;
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
 				<hibernate.format_sql>false</hibernate.format_sql>
 				<hibernate.show_sql>false</hibernate.show_sql>
 				<hibernate.use_sql_comments>false</hibernate.use_sql_comments>
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-				<!-- database properties -->
+				&lt;!&ndash; database properties &ndash;&gt;
 				<db.driverClassName>com.mysql.jdbc.Driver</db.driverClassName>
 				<db.url>jdbc:mysql://localhost:3306/amirus?keepAlive=true</db.url>
 				<db.username>root</db.username>
 				<db.password>root</db.password>
 			</properties>
-		</profile>
+		</profile>-->
 
 		<profile>
 			<!-- TEST PROFILE -->
@@ -227,14 +210,14 @@
 	<build>
 		<finalName>trading</finalName>
 		<plugins>
-			<plugin>
+			<!--<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.1.1</version>
 				<configuration>
 					<outputDirectory>webapps</outputDirectory>
 					<warName>ROOT</warName>
 				</configuration>
-			</plugin>
+			</plugin>-->
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

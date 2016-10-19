@@ -15,26 +15,26 @@ public class Tasks {
 
 	private FillsDao fillsDao;
 	private JdbcTemplate jdbcTemplate;
+	private String path;
 
-	public Tasks(FillsDao fillsDao, JdbcTemplate jdbcTemplate) {
+	public Tasks(FillsDao fillsDao, JdbcTemplate jdbcTemplate, String path) {
 		this.fillsDao = fillsDao;
 		this.jdbcTemplate = jdbcTemplate;
+		this.path = path;
 	}
-
 
 	// perform every 30 minutes
 	@Scheduled(cron = "0 */30 * * * ?")
 //	@Scheduled(cron = "0 48 5 * * ?")
 	public void updateOrders() {
-		OrderUpdater mu = new OrderUpdater(fillsDao);
+		OrderUpdater mu = new OrderUpdater(fillsDao, path);
 		System.out.println("Start updating orders");
 		mu.perform();
 		String logData = "Mail update finished : " + new LocalDateTime() + " " + TimeZone.getDefault().getDisplayName(true, TimeZone.SHORT)
-				+ " \tBegin (excluding) : " + mu.getMaxMessageNumber() + " \tOrders added : " + mu.getOrdersCount();
+				+ " \tOrders added : " + mu.getOrdersCount();
 		log(logData);
 		System.out.println("End updating orders");
 	}
-
 
 	// database log
 	private void log(String info) {

@@ -1,5 +1,6 @@
 package util;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -23,20 +24,19 @@ public class OrderUpdater {
     private static final long AFTER_RANGE = (DAY_RANGE + 1) * MILLIS_IN_A_DAY;
 
     private FillsDao fillsDao;
-    private Long maxSubmitTime;
     private int ordersCount;
+    private String path;
 
-    public OrderUpdater(FillsDao fillsDao) {
+    public OrderUpdater(FillsDao fillsDao, String path) {
         this.fillsDao = fillsDao;
+        this.path = path;
     }
 
     public void perform() {
-        maxSubmitTime = fillsDao.getMaxSubmitTime();
+        Long maxSubmitTime = fillsDao.getMaxSubmitTime();
         FileParser fileParser = new FileParser();
 
-//        MailReader mailReader = new MailReader();
-//        List<Order> orders = mailReader.readStartingFrom(maxMessageNumber);
-        List<Order> orders = fileParser.getParsedValues()
+        List<Order> orders = fileParser.getParsedValues(path, Charset.defaultCharset(), maxSubmitTime);
         ordersCount = orders.size();
         System.out.println(ordersCount);
         for (Order order : orders) {
@@ -46,7 +46,7 @@ public class OrderUpdater {
         }
     }
 
-    public void assignOrder(Order order) {
+    private void assignOrder(Order order) {
         if (!assignOrderToUnlannedDealOnClose(order)) {
             if (!assignOrderToPlannedDeal(order)) {
                 if (!assignOrderToPlannedDealsGroup(order)) {
@@ -480,10 +480,6 @@ public class OrderUpdater {
         return order.getInstrument().split(" \\+")[0];
     }
 
-    public Integer getMaxMessageNumber() {
-        return maxMessageNumber;
-    }
-
     public int getOrdersCount() {
         return ordersCount;
     }
@@ -491,8 +487,8 @@ public class OrderUpdater {
     public static void main(String[] args) {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("hibernate-context.xml");
         FillsDao fillsDao = (FillsDao) ctx.getBean("fillsDao");
-        OrderUpdater ou = new OrderUpdater(fillsDao);
-        ou.perform();
+//        OrderUpdater ou = new OrderUpdater(fillsDao, path);
+//        ou.perform();
         ctx.close();
         System.out.println("Finished.");
 
