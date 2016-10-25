@@ -16,8 +16,7 @@ public class FileParser {
 
     private static final DateTimeFormatter BUILDER = DateTimeFormat.forPattern("HH:mm:ss yyyyMMdd").withLocale(Locale.ENGLISH);
 
-    private List<String> readFile(String path, Charset encoding)
-            throws IOException
+    private List<String> readFile(String path, Charset encoding) throws IOException
     {
         List<String> lines = Files.readAllLines(Paths.get(path), encoding);
         return lines;
@@ -39,23 +38,28 @@ public class FileParser {
             Long submitTime = BUILDER.parseDateTime(subTimeStr).getMillis();
             if (maxSubmitTime < submitTime) {
                 maxSubmitTime = submitTime;
-                boolean direction = words[0].equalsIgnoreCase("BOT");
-                int lots = Integer.parseInt(words[1]);
-                double price = Double.parseDouble(words[4]);
-                String instrument = words[2].substring(0, 2);
+                String securityType = words[0];
+                if (securityType.equals("BAG")) {
+                    boolean direction = words[1].equalsIgnoreCase("BOT");
+                    int lots = Integer.parseInt(words[2]);
+                    String cotract = words[3];
+
+                    double price = Double.parseDouble(words[4]);
+                    String instrument = words[3].substring(0, 2);
 
 
-                order = new Order();
-                order.setAccount(words[8]);
-                order.setBuy(direction);
-                order.setLots(lots);
-                order.setPrice(price);
-                order.setInstrument(instrument);
-                order.setSubmitTime(submitTime);
-                order.setDeleted(false);
+                    order = new Order();
+                    order.setAccount(words[8]);
+                    order.setBuy(direction);
+                    order.setLots(lots);
+                    order.setPrice(price);
+                    order.setInstrument(instrument);
+                    order.setSubmitTime(submitTime);
+                    order.setDeleted(false);
 
-                orders.add(order);
+                    orders.add(order);
 
+                }
             }
             //result.add(dateTime.toString());
         }

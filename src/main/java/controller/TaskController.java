@@ -1,7 +1,9 @@
 package controller;
 
+import org.springframework.stereotype.Controller;
 import scheduler.Tasks;
 
+@Controller
 public class TaskController {
 
 	private Tasks tasks;

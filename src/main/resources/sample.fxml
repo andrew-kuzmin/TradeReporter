@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="mainPane" alignment="center" gridLinesVisible="true" hgap="10" prefHeight="487.0" prefWidth="760.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane fx:id="mainPane" alignment="center" gridLinesVisible="true" hgap="10" prefHeight="487.0" prefWidth="760.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controller">
    <children>
       <Label fx:id="label1" prefHeight="217.0" prefWidth="419.0" GridPane.rowIndex="1" />
       <Pane GridPane.rowIndex="3">

@@ -22,6 +22,7 @@
 	</bean>
 
     <import resource="classpath:hibernate-context.xml" />
+	<import resource="classpath:datasource-context.xml" />
 
 	<task:annotation-driven />
 	<bean id="tasks" class="scheduler.Tasks" init-method="updateOrders">

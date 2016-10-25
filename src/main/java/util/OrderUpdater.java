@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.goebl.david.Webb;
 import dao.FillsDao;
 import dto.Deal;
 import dto.Order;
@@ -33,17 +36,31 @@ public class OrderUpdater {
     }
 
     public void perform() {
-        Long maxSubmitTime = fillsDao.getMaxSubmitTime();
+        Webb webb = Webb.create();
+        Long maxSubmitTime = Long.parseLong(webb.get("http://trading-amirustech.rhcloud.com/tasks/max-submit-time").ensureSuccess().asString().getBody());
         FileParser fileParser = new FileParser();
 
         List<Order> orders = fileParser.getParsedValues(path, Charset.defaultCharset(), maxSubmitTime);
+        String json = "";
+        try {
+            json = toJSON(orders);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        webb.post("http://trading-amirustech.rhcloud.com/tasks/order-updater").param("orders", json).ensureSuccess().asString().getBody();
+        System.out.println(json);
         ordersCount = orders.size();
         System.out.println(ordersCount);
-        for (Order order : orders) {
+        /*for (Order order : orders) {
             fillsDao.updateOrder(order);
             System.out.println(order);
             assignOrder(order);
-        }
+        }*/
+    }
+
+    private String toJSON(List<Order> orders) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(orders);
     }
 
     private void assignOrder(Order order) {
