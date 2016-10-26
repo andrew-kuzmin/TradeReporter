@@ -3,6 +3,7 @@ package parser;
 import dto.Order;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import util.DealOps;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -34,7 +35,7 @@ public class FileParser {
         }
         for (String str : strings){
             String[] words = str.split(",");
-            String subTimeStr = words[5] + " " + words[6];
+            String subTimeStr = words[6] + " " + words[7];
             Long submitTime = BUILDER.parseDateTime(subTimeStr).getMillis();
             if (maxSubmitTime < submitTime) {
                 maxSubmitTime = submitTime;
@@ -42,10 +43,11 @@ public class FileParser {
                 if (securityType.equals("BAG")) {
                     boolean direction = words[1].equalsIgnoreCase("BOT");
                     int lots = Integer.parseInt(words[2]);
-                    String cotract = words[3];
+                    String contract = words[4];
+                    String instrument = DealOps.MARKET_NAMES.get(contract.substring(0, 2)) + " +" + contract.substring(3, 6) + contract.substring(7, 9)
+                            + "-" + contract.substring(10, 13) + contract.substring(14, 16);
 
-                    double price = Double.parseDouble(words[4]);
-                    String instrument = words[3].substring(0, 2);
+                    double price = Double.parseDouble(words[5]);
 
 
                     order = new Order();

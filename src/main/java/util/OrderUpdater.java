@@ -38,6 +38,7 @@ public class OrderUpdater {
     public void perform() {
         Webb webb = Webb.create();
         Long maxSubmitTime = Long.parseLong(webb.get("http://trading-amirustech.rhcloud.com/tasks/max-submit-time").ensureSuccess().asString().getBody());
+        System.out.println("Max submit time : " + maxSubmitTime);
         FileParser fileParser = new FileParser();
 
         List<Order> orders = fileParser.getParsedValues(path, Charset.defaultCharset(), maxSubmitTime);
