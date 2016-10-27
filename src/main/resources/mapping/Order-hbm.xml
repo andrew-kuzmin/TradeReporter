@@ -14,9 +14,12 @@
 		<property name="price" type="double" column="price" />
 		<property name="account" type="string" column="account" />
 		<property name="deleted" type="boolean" column="deleted" />
-		<property name="plannedDealId" type="long" column="planned_id"></property>
-		<property name="unplannedDealId" type="long" column="unplanned_id"></property>
-		<property name="messageNumber" type="int" column="message_number"></property>
-		<property name="message" type="string" column="message"></property>
+		<property name="plannedDealId" type="long" column="planned_id"/>
+		<property name="unplannedDealId" type="long" column="unplanned_id"/>
+		<property name="messageNumber" type="int" column="message_number"/>
+		<property name="message" type="string" column="message"/>
+		<property name="commission" type="double" column="commission"/>
+		<property name="twsId" type="string" column="tws_id"/>
+
 	</class>
 </hibernate-mapping>

@@ -1,7 +1,5 @@
 package dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.util.Date;
 
 public class Order {
@@ -18,6 +16,16 @@ public class Order {
 	private Long unplannedDealId;
 	private Integer messageNumber;
 	private String message;
+	private double commission;
+	private String twsId;
+
+	public double getCommission() {	return commission;	}
+
+	public void setCommission(double commission) {	this.commission = commission;	}
+
+	public String getTwsId() {	return twsId;	}
+
+	public void setTwsId(String twsId) { this.twsId = twsId;	}
 
 	public long getId() {
 		return id;

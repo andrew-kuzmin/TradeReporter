@@ -44,8 +44,16 @@ public class FileParser {
                     boolean direction = words[1].equalsIgnoreCase("BOT");
                     int lots = Integer.parseInt(words[2]);
                     String contract = words[4];
-                    String instrument = DealOps.MARKET_NAMES.get(contract.substring(0, 2)) + " +" + contract.substring(3, 6) + contract.substring(7, 9)
-                            + "-" + contract.substring(10, 13) + contract.substring(14, 16);
+                    String[] contractSplited = contract.split(" ");
+                    String instrument;
+                    if (contractSplited[1].charAt(3) == '\''){
+                        instrument = DealOps.MARKET_NAMES.get(contractSplited[0]) + " +" + contract.substring(3, 6) + contract.substring(7, 9)
+                                + "-" + contract.substring(10, 13) + contract.substring(14, 16);
+                    }
+                    else {
+                        instrument = DealOps.MARKET_NAMES.get(contractSplited[0]) + " +" + contract.substring(3, 6) + contract.substring(10, 12)
+                                + "-" + contract.substring(13, 16) + contract.substring(20, 22);
+                    }
 
                     double price = Double.parseDouble(words[5]);
 
@@ -57,6 +65,8 @@ public class FileParser {
                     order.setPrice(price);
                     order.setInstrument(instrument);
                     order.setSubmitTime(submitTime);
+                    order.setTwsId(words[9]);
+                    order.setCommission(Double.parseDouble(words[10]));
                     order.setDeleted(false);
 
                     orders.add(order);
