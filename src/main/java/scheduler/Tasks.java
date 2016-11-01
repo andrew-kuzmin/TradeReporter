@@ -30,14 +30,15 @@ public class Tasks {
 		OrderUpdater mu = new OrderUpdater(fillsDao, path);
 		System.out.println("Start updating orders");
 		mu.perform();
-		String logData = "Mail update finished : " + new LocalDateTime() + " " + TimeZone.getDefault().getDisplayName(true, TimeZone.SHORT)
-				+ " \tOrders added : " + mu.getOrdersCount();
-		log(logData);
+/*		String logData = "Mail update finished : " + new LocalDateTime() + " " + TimeZone.getDefault().getDisplayName(true, TimeZone.SHORT)
+				+ " \tOrders added : " + mu.getOrdersCount() + "\tOptions added : " + mu.getOptionsCount();
+		log(logData);*/
 		System.out.println("End updating orders");
 	}
 
+
 	// database log
-	private void log(String info) {
+	/*private void log(String info) {
 		try (Connection connection = jdbcTemplate.getDataSource().getConnection();) {
 			String query = "INSERT INTO amirus_log (log_data) VALUES (?);";
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -46,6 +47,6 @@ public class Tasks {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 }

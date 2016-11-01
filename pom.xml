@@ -131,10 +131,7 @@
 	<profiles>
 		<profile>
 			<!-- OPENSHIFT PROFILE -->
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+			<id>openshift</id>
 			<properties>
 				<!-- hibernate properties -->
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
@@ -144,10 +141,9 @@
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
 				<!-- database properties -->
 				<db.driverClassName>com.mysql.jdbc.Driver</db.driverClassName>
-				<db.url>jdbc:mysql://46.219.112.90:3306/amirus?keepAlive=true</db.url>
-				<!--<db.url>jdbc:mysql://address=(protocol=tcp)(host=127.7.216.2)(port=3306)/amirus?keepAlive=true</db.url>-->
-				<db.username>kuzmin</db.username>
-				<db.password>Lambo31s</db.password>
+				<db.url>jdbc:mysql://127.7.216.2:3306/amirus?keepAlive=true</db.url>
+				<db.username>adminbukepJY</db.username>
+				<db.password>ckW5Q2dpJarl</db.password>
 			</properties>
 			<repositories>
 				<repository>
@@ -176,27 +172,27 @@
 			</pluginRepositories>
 		</profile>
 
-		<!--<profile>
-			&lt;!&ndash;
-			CAL PROFILE &ndash;&gt;
+		<profile>
+			<!--
+			CAL PROFILE -->
 			<id>default</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				&lt;!&ndash; hibernate properties &ndash;&gt;
+				<!-- hibernate properties -->
 				<hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</hibernate.dialect>
 				<hibernate.format_sql>false</hibernate.format_sql>
 				<hibernate.show_sql>false</hibernate.show_sql>
 				<hibernate.use_sql_comments>false</hibernate.use_sql_comments>
 				<hibernate.hbm2ddl.auto>update</hibernate.hbm2ddl.auto>
-				&lt;!&ndash; database properties &ndash;&gt;
+				<!-- database properties -->
 				<db.driverClassName>com.mysql.jdbc.Driver</db.driverClassName>
 				<db.url>jdbc:mysql://localhost:3306/amirus?keepAlive=true</db.url>
 				<db.username>root</db.username>
 				<db.password>root</db.password>
 			</properties>
-		</profile>-->
+		</profile>
 
 		<!--<profile>
 			&lt;!&ndash; TEST PROFILE &ndash;&gt;
