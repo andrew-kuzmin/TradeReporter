@@ -7,6 +7,8 @@ import org.joda.time.format.DateTimeFormatter;
 import util.DealOps;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -58,7 +60,7 @@ public class FileParser {
                                 + "-" + contract.substring(13, 16) + contract.substring(20, 22);
                     }
 
-                    double price = Double.parseDouble(words[5]);
+                    double price = round(Double.parseDouble(words[5]) * 100, 2);
 
 
                     order = new Order();
@@ -124,7 +126,6 @@ public class FileParser {
                     option.setAccount(words[8]);
                     option.setBuy(direction);
                     option.setLots(lots);
-                    option.setPrice(price);
                     option.setInstrument(instrument);
                     if (expDate != null) option.setExpDate(expDate);
                     option.setStrike(strike);
@@ -141,6 +142,14 @@ public class FileParser {
 
 
         return options;
+    }
+
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
 }
