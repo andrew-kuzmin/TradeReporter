@@ -41,7 +41,7 @@ public class FileParser {
         }
         for (String str : strings) {
             String[] words = str.split(",");
-            String subTimeStr = words[6] + " " + words[7];
+            String subTimeStr = words[5] + " " + words[6];
             Long submitTime = BUILDER.parseDateTime(subTimeStr).getMillis();
             if (maxSubmitTime < submitTime) {
                 maxSubmitTime = submitTime;
@@ -49,7 +49,7 @@ public class FileParser {
                 if (securityType.equals("BAG")) {
                     boolean direction = words[1].equalsIgnoreCase("BOT");
                     int lots = Integer.parseInt(words[2]);
-                    String contract = words[4];
+                    String contract = words[3];
                     String[] contractSplited = contract.split(" ");
                     String instrument;
                     if (contractSplited[1].charAt(3) == '\'') {
@@ -60,18 +60,18 @@ public class FileParser {
                                 + "-" + contract.substring(13, 16) + contract.substring(20, 22);
                     }
 
-                    double price = round(Double.parseDouble(words[5]) * 100, 2);
+                    double price = round(Double.parseDouble(words[4]) * 100, 2);
 
 
                     order = new Order();
-                    order.setAccount(words[8]);
+                    order.setAccount(words[7]);
                     order.setBuy(direction);
                     order.setLots(lots);
                     order.setPrice(price);
                     order.setInstrument(instrument);
                     order.setSubmitTime(submitTime);
-                    order.setTwsId(words[9]);
-                    order.setCommission(Double.parseDouble(words[10]));
+                    order.setTwsId(words[8]);
+                    order.setCommission(Double.parseDouble(words[9]));
                     order.setDeleted(false);
 
                     orders.add(order);
@@ -98,16 +98,16 @@ public class FileParser {
 
         for (String str : strings) {
             String[] words = str.split(",");
-            String subTimeStr = words[6] + " " + words[7];
+            String subTimeStr = words[5] + " " + words[6];
             Long submitTime = BUILDER.parseDateTime(subTimeStr).getMillis();
-            if (maxSubmitTime <= submitTime) {
+            if (maxSubmitTime < submitTime) {
                 maxSubmitTime = submitTime;
 
                 String securityType = words[0];
                 if (securityType.equals("OPT")) {
                     boolean direction = words[1].equalsIgnoreCase("BOT");
                     int lots = Integer.parseInt(words[2]);
-                    String[] contractSplited = words[4].split(" ");
+                    String[] contractSplited = words[3].split(" ");
                     String instrument = contractSplited[0];
                     String expDateStr = contractSplited[1].substring(0, 5) + " " + contractSplited[1].substring(6);
                     System.out.println("date : " + expDateStr);
@@ -120,18 +120,18 @@ public class FileParser {
                     }
                     Double strike = Double.parseDouble(contractSplited[2]);
                     String type = contractSplited[3];
-                    double price = Double.parseDouble(words[5]);
+                    double price = Double.parseDouble(words[4]);
 
                     option = new Option();
-                    option.setAccount(words[8]);
+                    option.setAccount(words[7]);
                     option.setBuy(direction);
                     option.setLots(lots);
                     option.setInstrument(instrument);
                     if (expDate != null) option.setExpDate(expDate);
                     option.setStrike(strike);
                     option.setPrice(price);
-                    option.setTwsId(words[9]);
-                    option.setCommission(Double.parseDouble(words[10]));
+                    option.setTwsId(words[8]);
+                    option.setCommission(Double.parseDouble(words[9]));
                     option.setSubmitTime(submitTime);
                     option.setType(type);
 
@@ -145,8 +145,7 @@ public class FileParser {
     }
 
     private double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
+//        if (places < 0) throw new IllegalArgumentException();
         BigDecimal bd = new BigDecimal(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();

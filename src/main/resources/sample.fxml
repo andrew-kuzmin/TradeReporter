@@ -7,23 +7,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="mainPane" alignment="center" gridLinesVisible="true" hgap="10" prefHeight="487.0" prefWidth="760.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controller">
+<GridPane fx:id="mainPane" alignment="center" hgap="10" prefHeight="175.0" prefWidth="326.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Controller">
    <children>
-      <Label fx:id="label1" prefHeight="217.0" prefWidth="419.0" GridPane.rowIndex="1" />
-      <Pane GridPane.rowIndex="3">
+      <Label fx:id="label1" prefHeight="67.0" prefWidth="266.0" />
+      <Pane GridPane.rowIndex="2">
          <children>
-            <Button fx:id="chooseFileButton" alignment="CENTER" contentDisplay="TOP" layoutX="133.0" mnemonicParsing="false" onMouseClicked="#onChooseFileClicked" prefHeight="25.0" prefWidth="153.0" text="Choose file" textOverrun="CLIP" />
+            <Button fx:id="chooseDirButton" alignment="CENTER" contentDisplay="TOP" layoutX="15.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#onChooseDirClicked" prefHeight="25.0" prefWidth="153.0" text="Choose directory" textOverrun="CLIP" />
+            <Button fx:id="updateButton" layoutX="191.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#onUpdateClicked" text="Update " />
          </children>
       </Pane>
+      <Label fx:id="lastOrderTimeLabel" prefHeight="17.0" prefWidth="266.0" GridPane.rowIndex="1" />
    </children>
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
-      <RowConstraints />
-      <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints maxHeight="207.0" minHeight="49.0" prefHeight="80.0" />
+      <RowConstraints maxHeight="207.0" minHeight="8.0" prefHeight="33.0" />
+      <RowConstraints maxHeight="193.0" minHeight="20.0" prefHeight="26.0" />
    </rowConstraints>
 </GridPane>
